@@ -37,6 +37,10 @@ class SecondActivity : AppCompatActivity() {
 
         val container = findViewById<ListView>(R.id.lvCatalog)
 
+        val adapter = ProductAdapter(this,  products )
+        container.adapter = adapter
+
+
 
 
 //        val container = findViewById<LinearLayout>(R.id.catalog)
@@ -77,18 +81,19 @@ class ProductAdapter(
         val view =  convertView ?: LayoutInflater.from(context)
              .inflate(R.layout.item_product, parent , false)
         val product = getItem(position)
-
+//Находим элементы в карточке товара
         val image =  view.findViewById<ImageView>(R.id.ivProductImage)
         val name = view.findViewById<TextView>(R.id.tvProductname)
         val button = view.findViewById<Button>(R.id.btnDetails)
         val prise =   view.findViewById<TextView>(R.id.tvProductPrice)
-        image.setImageResourse(product.ImageRes)
+
+        image.setImageResource(product.ImageRes)
         name.text = product.name
         prise.text = "${product.prise} $"
 
         button.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java).apply {
-
+//Нажатие на кнопку
                 putExtra("name", product.name)
                 putExtra("price", product.prise)
                 putExtra("ImageRes", product.ImageRes)
