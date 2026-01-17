@@ -28,8 +28,9 @@ class ProductGridAdapter(
         return VH(view)
 
     }
-
+    //
     override fun getItemCount() = products.size
+
 
 
 
