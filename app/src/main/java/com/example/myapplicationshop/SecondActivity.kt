@@ -79,7 +79,7 @@ class ProductAdapter(
     override fun getItemId(position: Int) = position.toLong()
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
         val view =  convertView ?: LayoutInflater.from(context)
-             .inflate(R.layout.item_product, parent , false)
+             .inflate(R.layout.Item_product, parent , false)
         val product = getItem(position)
 //Находим элементы в карточке товара
         val image =  view.findViewById<ImageView>(R.id.ivProductImage)

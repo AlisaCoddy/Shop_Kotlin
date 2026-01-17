@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout :android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:gravity="center_horizontal"
+
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/ivProductImage"
+        android:layout_width="match_parent"
+        android:scaleType="centerCrop"
+        android:layout_height="150dp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/tvProductname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Название товара"
+        android:textSize="30sp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/tvProductPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.0₽"
+        android:textSize="20sp"
+        android:layout_marginBottom="15dp"/>
+
+    <Button
+        android:id="@+id/btnDetails"
+        android:layout_width="175dp"
+        android:layout_height="79dp"
+        android:text="Подробнее" />
+
+
+
+</LinearLayout>
+
+
