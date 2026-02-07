@@ -1,5 +1,6 @@
 package com.example.myapplicationshop
 
+import Product
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -9,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.myapplicationshop.model.CartStorage
 
 class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +30,7 @@ class DetailActivity : AppCompatActivity() {
         val detailDescription = findViewById<TextView>(R.id.detailDescription)
         val buyButton = findViewById<Button>(R.id.buyButton)
         val backButton = findViewById<Button>(R.id.backButton)
+        val productId = intent.getIntExtra("id", -1) // -1 = не пришло
 
         detailImage.setImageResource(productImageRes)
         detailName.text = productName
@@ -35,6 +38,12 @@ class DetailActivity : AppCompatActivity() {
         detailDescription.text = productDescription
 
         buyButton.setOnClickListener {
+            // собирает обект класса Product из отдельных переменных, это товар который мы добавляем
+            val one_new_product = Product(id =productId, name = productName, prise = productPrice, descriptor = productDescription,
+                ImageRes =  productImageRes)
+            //  добавление нового товара в корзину(своя функция)
+            CartStorage.add_item(one_new_product)
+            // сообщение об успешном добавлении
             Toast.makeText(this, "Товар добавлен в корзину", Toast.LENGTH_SHORT).show()
         }
         backButton.setOnClickListener {

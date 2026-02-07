@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="25dp"
+    android:background="EFE3E3"
+    >
+    <TextView
+        android:id="@+id/tvCartTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Корзина"
+        android:textSize="24sp"
+        android:textAlignment="center"
+        android:layout_marginBottom="12dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCartList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+    <TextView
+        android:id="@+id/tvCartTotalSum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ИТОГО:0 $"
+        android:textSize="30sp"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
+        />
+
+    <Button
+        android:layout_width="165dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#A0522D"
+        android:text="Очистить" />
+
+
+</LinearLayout>

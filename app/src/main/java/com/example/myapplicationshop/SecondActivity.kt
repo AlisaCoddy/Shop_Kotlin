@@ -4,6 +4,8 @@ import Product
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -11,18 +13,24 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
-
 import androidx.activity.enableEdgeToEdge
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.KeyPosition
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.MaterialToolbar
 import kotlin.jvm.java
 
 
 class SecondActivity : AppCompatActivity() {
+    private lateinit var lwList: ListView
+    private lateinit var rwGrid: RecyclerView
+    private lateinit var listAdapter:  ProductAdapter
+    private lateinit var gridAdapter: ProductGridAdapter
+
     private val products = listOf(
         Product(1, "cosplay 1", 33.60, "Описание 1", R.drawable.one),
         Product(2, "cosplay 2 ", 140.5, "Описание 2", R.drawable.two),
@@ -35,10 +43,74 @@ class SecondActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_second)
 
-        val container = findViewById<ListView>(R.id.lvCatalog)
 
-        val adapter = ProductAdapter(this,  products )
-        container.adapter = adapter
+
+        val toolbar= findViewById<MaterialToolbar>(R.id.topBar)
+        setSupportActionBar(toolbar)
+
+        //1  шаг. Находим оба списка на экране
+        lwList = findViewById(R.id.lvCatalog)
+        rwGrid = findViewById(R.id.rvCatalogGrid)
+
+        // шаг 2. Находим адаптер для LW
+        listAdapter = ProductAdapter(this,products)
+
+        // шаг 3. Находим адаптер для  RW
+        gridAdapter = ProductGridAdapter(this,products)
+
+        // шаг 4. Соединяем адаптер и список LW
+        lwList.adapter = listAdapter
+
+        // шаг 5. Соединяем адаптер и список RW
+        rwGrid.layoutManager = GridLayoutManager(this, 2)
+        rwGrid.adapter = gridAdapter
+        val prefs = getSharedPreferences("settings", MODE_PRIVATE)
+        val isGridPref = prefs.getBoolean("isGrid", true)
+
+        if (isGridPref == true){
+            showGrid()
+        } else{
+            showlist()
+        }
+
+
+    }
+
+    private fun showlist(){
+        lwList.visibility = View.VISIBLE
+        rwGrid.visibility = View.GONE
+        val prefs = getSharedPreferences("settings", MODE_PRIVATE)
+        prefs.edit( ).putBoolean("isGrid", false). apply()
+
+        }
+    private fun showGrid(){
+        lwList.visibility = View.GONE
+        rwGrid.visibility = View.VISIBLE
+        val prefs = getSharedPreferences("settings", MODE_PRIVATE)
+        prefs.edit( ).putBoolean("isGrid", true). apply()
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+         menuInflater.inflate(R.menu.menu_second, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_list){
+            showlist()
+            return true
+
+        }
+        if (item.itemId == R.id.action_grid){
+            showGrid()
+            return true
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
 
 
 
@@ -68,7 +140,7 @@ class SecondActivity : AppCompatActivity() {
 //        }
     }
 
-}
+
 class ProductAdapter(
     private val context:android.content.Context,
     private val products: List<Product>
@@ -79,7 +151,7 @@ class ProductAdapter(
     override fun getItemId(position: Int) = position.toLong()
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
         val view =  convertView ?: LayoutInflater.from(context)
-             .inflate(R.layout.Item_product, parent , false)
+             .inflate(R.layout.item_product, parent , false)
         val product = getItem(position)
 //Находим элементы в карточке товара
         val image =  view.findViewById<ImageView>(R.id.ivProductImage)
@@ -94,6 +166,7 @@ class ProductAdapter(
         button.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java).apply {
 //Нажатие на кнопку
+                putExtra("id", product.id)
                 putExtra("name", product.name)
                 putExtra("price", product.prise)
                 putExtra("ImageRes", product.ImageRes)
