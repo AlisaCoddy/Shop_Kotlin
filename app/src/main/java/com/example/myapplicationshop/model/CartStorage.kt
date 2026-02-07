@@ -15,6 +15,7 @@ object CartStorage {
             items.add(new_item)
         }
     }
+
     // удаление товара из корзины(удаляем стареньких)
     fun remove(old_item: Product){
         items.removeAll { it.id == old_item.id}

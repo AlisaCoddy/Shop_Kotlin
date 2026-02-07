@@ -178,5 +178,6 @@ class ProductAdapter(
         return view
 
     }
+
     }
 
