@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="25dp"
-    android:background="EFE3E3"
+    android:background="#EFE3E3"
     >
     <TextView
         android:id="@+id/tvCartTitle"
@@ -33,6 +33,7 @@
         />
 
     <Button
+        android:id="@+id/btnClearCart"
         android:layout_width="165dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#A0522D"

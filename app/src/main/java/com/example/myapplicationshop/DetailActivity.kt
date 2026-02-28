@@ -17,6 +17,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_detail)
+
         //      Получение данных из intent
         val productName = intent.getStringExtra("name") ?: "Товар"
         val productPrice = intent.getDoubleExtra("price", 0.0)
@@ -42,7 +43,7 @@ class DetailActivity : AppCompatActivity() {
             val one_new_product = Product(id =productId, name = productName, prise = productPrice, descriptor = productDescription,
                 ImageRes =  productImageRes)
             //  добавление нового товара в корзину(своя функция)
-            CartStorage.add_item(one_new_product)
+            CartStorage.add_item(this,one_new_product)
             // сообщение об успешном добавлении
             Toast.makeText(this, "Товар добавлен в корзину", Toast.LENGTH_SHORT).show()
         }
