@@ -26,18 +26,40 @@
         android:id="@+id/tvCartTotalSum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ИТОГО:0 $"
-        android:textSize="30sp"
-        android:paddingBottom="12dp"
         android:paddingTop="12dp"
-        />
+        android:paddingBottom="12dp"
+        android:text="ИТОГО:0 $"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnMakeOrder"
+        android:layout_width="363dp"
+        android:layout_height="38dp"
+        android:backgroundTint="#A0522D"
+        android:text="Заказать" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
 
     <Button
         android:id="@+id/btnClearCart"
-        android:layout_width="165dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:backgroundTint="#A0522D"
-        android:text="Очистить" />
+        android:layout_marginRight="8dp"
+        android:text="Очистить корзину" />
 
+    <Button
+        android:id="@+id/btnOpenHistory"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#A0522D"
+        android:text="История" />
+    </LinearLayout>
 
 </LinearLayout>
