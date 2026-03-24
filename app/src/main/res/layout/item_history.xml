@@ -44,11 +44,5 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Подробнее"
-        />
 
 </LinearLayout>

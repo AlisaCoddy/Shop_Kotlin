@@ -35,9 +35,6 @@ class HistoryAdapter (
         holder.name.text = order.product.name
         holder.price.text = "${order.quantity} * ${order.product.prise} $ = ${order.totalPrise}$"
         holder.date.text = order.dateTime
-
-
-
     }
 
 

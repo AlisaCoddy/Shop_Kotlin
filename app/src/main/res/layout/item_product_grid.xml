@@ -35,7 +35,8 @@
         android:id="@+id/btnDetails"
         android:layout_width="175dp"
         android:layout_height="79dp"
-        android:text="Подробнее" />
+        android:text="Подробнее"
+        android:backgroundTint="#A0522D"/>
 
 
 

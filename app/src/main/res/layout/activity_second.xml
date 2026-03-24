@@ -16,7 +16,7 @@
         android:background="#EFE3E3"
         android:elevation="4dp"
         app:title="Каталог"
-
+        android:layout_marginBottom="14dp"
         />
 
     <ListView

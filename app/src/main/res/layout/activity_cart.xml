@@ -34,7 +34,7 @@
     <Button
         android:id="@+id/btnMakeOrder"
         android:layout_width="363dp"
-        android:layout_height="38dp"
+        android:layout_height="48dp"
         android:backgroundTint="#A0522D"
         android:text="Заказать" />
 
