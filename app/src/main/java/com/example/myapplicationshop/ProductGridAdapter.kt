@@ -4,13 +4,14 @@ import Product
 import android.content.Intent
 import android.text.Layout
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-
 
 class ProductGridAdapter(
     private val context:android.content.Context,
@@ -28,16 +29,20 @@ class ProductGridAdapter(
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_product_grid,parent, false)
         return VH(view)
-
     }
     //
     override fun getItemCount() = products.size
 
     override fun onBindViewHolder(holder: VH, position: Int ) {
         val product = products[position]
+
         holder.image.setImageResource(product.ImageRes)
         holder.name.text = product.name
         holder.price.text = "${product.prise} $"
+
+        //запуск анимации появления карточки
+        holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.context, R.anim.item_appear))
+
         holder.button.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java).apply {
 //Нажатие на кнопку
@@ -50,6 +55,25 @@ class ProductGridAdapter(
             context.startActivity(intent)
         }
 
-    }
+        holder.button.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                v.startAnimation(AnimationUtils.loadAnimation(v.context, R.anim.scale_down))
+            }
+
+            if (event.action == MotionEvent.ACTION_UP) {
+                v.startAnimation(AnimationUtils.loadAnimation(v.context, R.anim.scale_up))
+            }
+
+            if (event.action == MotionEvent.ACTION_CANCEL) {
+                v.startAnimation(AnimationUtils.loadAnimation(v.context, R.anim.scale_up))
+            }
+            false
+        }
 
     }
+
+}
+
+
+
+

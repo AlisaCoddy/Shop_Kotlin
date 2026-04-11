@@ -2,6 +2,8 @@ package com.example.myapplicationshop
 
 import Product
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -38,6 +40,12 @@ class DetailActivity : AppCompatActivity() {
         detailPrice.text = "$productPrice $"
         detailDescription.text = productDescription
 
+        detailImage.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade))
+        detailName.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade))
+        detailPrice.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade))
+        detailDescription.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade))
+        backButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade))
+
         buyButton.setOnClickListener {
             // собирает обект класса Product из отдельных переменных, это товар который мы добавляем
             val one_new_product = Product(id =productId, name = productName, prise = productPrice, descriptor = productDescription,
@@ -47,6 +55,37 @@ class DetailActivity : AppCompatActivity() {
             // сообщение об успешном добавлении
             Toast.makeText(this, "Товар добавлен в корзину", Toast.LENGTH_SHORT).show()
         }
+
+         buyButton.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                v.startAnimation(AnimationUtils.loadAnimation(v.context, R.anim.scale_down))
+            }
+
+            if (event.action == MotionEvent.ACTION_UP) {
+                v.startAnimation(AnimationUtils.loadAnimation(v.context, R.anim.scale_up))
+            }
+
+            if (event.action == MotionEvent.ACTION_CANCEL) {
+                v.startAnimation(AnimationUtils.loadAnimation(v.context, R.anim.scale_up))
+            }
+            false
+        }
+
+        backButton.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                v.startAnimation(AnimationUtils.loadAnimation(v.context, R.anim.scale_down))
+            }
+
+            if (event.action == MotionEvent.ACTION_UP) {
+                v.startAnimation(AnimationUtils.loadAnimation(v.context, R.anim.scale_up))
+            }
+
+            if (event.action == MotionEvent.ACTION_CANCEL) {
+                v.startAnimation(AnimationUtils.loadAnimation(v.context, R.anim.scale_up))
+            }
+            false
+        }
+
         backButton.setOnClickListener {
             finish()
         }

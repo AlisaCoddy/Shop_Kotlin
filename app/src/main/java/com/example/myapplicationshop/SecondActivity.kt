@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -32,11 +34,14 @@ class SecondActivity : AppCompatActivity() {
     private lateinit var gridAdapter: ProductGridAdapter
 
     private val products = listOf(
-        Product(1, "cosplay 1", 33.60, "Описание 1", R.drawable.one),
-        Product(2, "cosplay 2 ", 140.5, "Описание 2", R.drawable.two),
-        Product(3, "cosplay 3", 40.0, "Описание 3", R.drawable.three),
-        Product(4, "cosplay 4 ", 70.5, "Описание 4", R.drawable.four),
-        Product(5, "cosplay 5", 120.0, "Описание 5", R.drawable.five)
+        Product(1, "cosplay 1", 33.60, "Костюм Чарли Морнингстар. Красный полиэстер", R.drawable.one),
+        Product(2, "cosplay 2 ", 140.5, "Костюм для косплея Люмин из игры Genshin Impact", R.drawable.two),
+        Product(3, "cosplay 3", 40.0, "Костюм Шинобу Кочо Клинок Рассекающий Демонов", R.drawable.three),
+        Product(4, "cosplay 4 ", 70.5, "Костюм Джуди Хопс Зверополис", R.drawable.four),
+        Product(5, "cosplay 5", 120.0, "Костюм Кирилл Чудомирович Genshin Impact", R.drawable.five),
+        Product(6, "cosplay 6", 30.0, "Описание 6", R.drawable.six),
+        Product(7, "cosplay 7", 80.0, "Описание 7", R.drawable.seven),
+        Product(8, "cosplay 8", 110.0, "Описание 8", R.drawable.eight)
     )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -178,6 +183,21 @@ class ProductAdapter(
                 putExtra("description", product.descriptor)
                 }
                 context.startActivity(intent)
+        }
+
+        button.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                v.startAnimation(AnimationUtils.loadAnimation(v.context, R.anim.scale_down))
+            }
+
+            if (event.action == MotionEvent.ACTION_UP) {
+                v.startAnimation(AnimationUtils.loadAnimation(v.context, R.anim.scale_up))
+            }
+
+            if (event.action == MotionEvent.ACTION_CANCEL) {
+                v.startAnimation(AnimationUtils.loadAnimation(v.context, R.anim.scale_up))
+            }
+            false
         }
 
         return view
