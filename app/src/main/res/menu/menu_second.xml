@@ -2,6 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_sort"
+        android:title="Сортировка"
+        android:icon="@drawable/sr_iconca"
+        app:showAsAction="always">
+
+        <menu>
+
+            <item
+                android:id="@+id/sort_default"
+                android:title="По умочанию"/>
+            <item
+                android:id="@+id/sort_asc"
+                android:title="По цене ↓"/>
+            <item
+                android:id="@+id/sort_desc"
+                android:title="По цене  ↑"/>
+
+        </menu>
+
+
+    </item>
+
+    <item
         android:id="@+id/action_cart"
         android:title="Корзина"
         android:icon="@drawable/ic_iconca"

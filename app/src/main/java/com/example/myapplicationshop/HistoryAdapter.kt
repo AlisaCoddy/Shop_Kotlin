@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplicationshop.CartAdapter.VH
 import com.example.myapplicationshop.model.Order
+import com.example.myapplicationshop.model.RatingStorage
 
 class HistoryAdapter (
     private val items: List<Order>
@@ -19,6 +21,9 @@ class HistoryAdapter (
             val name: TextView = view.findViewById<TextView>(R.id.tvHistoryname)
             val price: TextView  = view.findViewById<TextView>(R.id.tvHistoryPrice)
             val date: TextView = view.findViewById<TextView>(R.id.tvHistoryDate)
+            val ratingBar: RatingBar = view.findViewById<RatingBar>(R.id.rbHistory)
+
+
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryAdapter.VH {
@@ -35,6 +40,19 @@ class HistoryAdapter (
         holder.name.text = order.product.name
         holder.price.text = "${order.quantity} * ${order.product.prise} $ = ${order.totalPrise}$"
         holder.date.text = order.dateTime
+
+        // Работа с рейтингом
+        // 1 шаг: Получаем кол-во звёздочек из настроек
+        val savedRating = RatingStorage.get(holder.itemView.context, order.product.id)
+
+        // 2 шаг: Отображаем в рейтинг бар эти звёздочки
+        holder.ratingBar.rating = savedRating
+
+        //3 шаг Обраюотка нажатия на звёздочки
+        holder.ratingBar.setOnRatingBarChangeListener{_, rating, _ ->
+            RatingStorage.save(holder.itemView.context,order.product.id, rating)
+
+        }
     }
 
 

@@ -43,12 +43,17 @@ class SecondActivity : AppCompatActivity() {
         Product(7, "cosplay 7", 80.0, "Описание 7", R.drawable.seven),
         Product(8, "cosplay 8", 110.0, "Описание 8", R.drawable.eight)
     )
+
+    private val originallist = mutableListOf<Product>()
+    private val currentlist = mutableListOf<Product>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_second)
 
-
+        originallist.addAll(products)
+        currentlist.addAll(products)
 
         val toolbar= findViewById<MaterialToolbar>(R.id.topBar)
         setSupportActionBar(toolbar)
@@ -58,10 +63,10 @@ class SecondActivity : AppCompatActivity() {
         rwGrid = findViewById(R.id.rvCatalogGrid)
 
         // шаг 2. Находим адаптер для LW
-        listAdapter = ProductAdapter(this,products)
+        listAdapter = ProductAdapter(this,currentlist)
 
         // шаг 3. Находим адаптер для  RW
-        gridAdapter = ProductGridAdapter(this,products)
+        gridAdapter = ProductGridAdapter(this,currentlist)
 
         // шаг 4. Соединяем адаптер и список LW
         lwList.adapter = listAdapter
@@ -102,6 +107,28 @@ class SecondActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.sort_default -> {
+                currentlist.clear()
+                currentlist.addAll(originallist)
+                listAdapter.notifyDataSetChanged()
+                gridAdapter.notifyDataSetChanged()
+                return true
+            }
+            R.id.sort_asc -> {
+                currentlist.sortBy{it.prise }
+                listAdapter.notifyDataSetChanged()
+                gridAdapter.notifyDataSetChanged()
+                return true
+            }
+            R.id.sort_desc-> {
+                currentlist.sortByDescending{it.prise }
+                listAdapter.notifyDataSetChanged()
+                gridAdapter.notifyDataSetChanged()
+                return true
+            }
+        }
+
         if (item.itemId == R.id.action_cart){
             startActivity(Intent(this, CartActivity::class.java))
             return true
